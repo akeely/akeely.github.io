@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[My Octopress Blog]]></title>
-  <link href="http://akeely.github.io/atom.xml" rel="self"/>
+  <title><![CDATA[Category: SSH | My Octopress Blog]]></title>
+  <link href="http://akeely.github.io/blog/categories/ssh/atom.xml" rel="self"/>
   <link href="http://akeely.github.io/"/>
   <updated>2013-04-19T23:55:32-04:00</updated>
   <id>http://akeely.github.io/</id>
@@ -21,14 +21,13 @@
     <content type="html"><![CDATA[<p>I just set up <a href="http://octopress.org/">Octopress</a> as a framework for this blog, so I thought it would be appropriate to start off with a (minor) issue I ran into creating it.
 When running <code>rake deploy</code>, I received the following error mixed in with the output:</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='text'><span class='line'>## Pushing generated _deploy website
-</span><span class='line'>Permission denied (publickey).
-</span><span class='line'>fatal: The remote end hung up unexpectedly
-</span></code></pre></td></tr></table></div></figure>
+<p>``` text</p>
 
+<h2>Pushing generated _deploy website</h2>
+
+<p>Permission denied (publickey).
+fatal: The remote end hung up unexpectedly
+```</p>
 
 <p>The solution is simple: the Octopress installation guide assumes you have set up SSH keys with Github. To resolve the issue, simply follow the instructions on Github for <a href="https://help.github.com/articles/generating-ssh-keys">setting up SSH keys</a>.</p>
 ]]></content>
