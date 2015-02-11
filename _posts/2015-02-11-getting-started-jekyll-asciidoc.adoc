@@ -1,0 +1,11 @@
+---
+layout: post
+title: "Getting Started with Jekyll and Asciidoc"
+date: 2015-02-11
+comments: true
+sharing: true
+categories: [Blog]
+tags: [Jekyll, Asciidoc, Github]
+---
+
+This is a placeholder for the instructions to create a blog on Github Pages using Jekyll and Asciidoc.
