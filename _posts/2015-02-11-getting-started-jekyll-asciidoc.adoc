@@ -8,4 +8,79 @@ categories: [Blog]
 tags: [Jekyll, Asciidoc, Github]
 ---
 
-This is a placeholder for the instructions to create a blog on Github Pages using Jekyll and Asciidoc.
+Here are the steps I followed to create this blog on Github Pages using Jekyll and Asciidoc.
+
+=== Github Project Setup
+
+Create your project in Github with the name `<username>.github.io`, and clone it to your local development environment.
+
+Create a branch (I used the name `jekyll`) and switch to it to store your infrastructure (the generated HTML will live in the master branch):
+
+----
+git checkout -b jekyll
+----
+
+At this point, you can also add your `.gitignore` file. Mine looks like this:
+
+----
+.bundle/
+_site
+.sass-cache
+Gemfile.lock
+.DS_Store
+----
+
+=== Install Jekyll and Asciidoc
+
+As a prerequisite, make sure you have link:https://www.ruby-lang.org/en/downloads/[ruby] and link:https://rubygems.org/[rubygems] installed.
+
+To install Jekyll, first install `bundler` to use as a package manager:
+
+----
+gem install bundler
+----
+
+Then create your Gemfile with the following contents to require Jekyll, Asciidoctor and the Asciidoc plugin for Jekyll:
+
+----
+source 'https://rubygems.org'
+
+gem 'jekyll'
+gem 'asciidoctor'
+
+group :jekyll_plugins do
+  gem "jekyll-asciidoc"
+end
+----
+
+Finally, install the contents of your Gemfile:
+
+----
+bundle install
+----
+
+=== Create Your Blog
+
+To start, I added a single post, which must follow the following naming convention:
+
+----
+_posts/<YYYY-MM-DD>-<postname>.adoc
+----
+
+And have the necessary link:http://jekyllrb.com/docs/frontmatter/[front matter].
+
+The full Jekyll directory structure is link:http://jekyllrb.com/docs/structure/[available here].
+
+=== Run Your Blog Locally
+
+To start your blog locally, run:
+
+----
+bundle exec jekyll serve
+----
+
+Your blog should now be accessible at link:http://localhost:4000[].
+
+=== Automate Your Blog
+
+Finally, use link:https://travis-ci.org/[Travis CI] to automate your blog. Follow the instructions link:http://eshepelyuk.github.io/2014/10/28/automate-github-pages-travisci.html[available here].
