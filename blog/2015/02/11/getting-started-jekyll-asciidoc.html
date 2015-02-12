@@ -1,0 +1,103 @@
+<div class="paragraph">
+<p>Here are the steps I followed to create this blog on Github Pages using Jekyll and Asciidoc.</p>
+</div>
+<div class="sect2">
+<h3 id="github-project-setup">Github Project Setup</h3>
+<div class="paragraph">
+<p>Create your project in Github with the name <code>&lt;username&gt;.github.io</code>, and clone it to your local development environment.</p>
+</div>
+<div class="paragraph">
+<p>Create a branch (I used the name <code>jekyll</code>) and switch to it to store your infrastructure (the generated HTML will live in the master branch):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>git checkout -b jekyll</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>At this point, you can also add your <code>.gitignore</code> file. Mine looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>.bundle/
+_site
+.sass-cache
+Gemfile.lock
+.DS_Store</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="install-jekyll-and-asciidoc">Install Jekyll and Asciidoc</h3>
+<div class="paragraph">
+<p>As a prerequisite, make sure you have <a href="https://www.ruby-lang.org/en/downloads/">ruby</a> and <a href="https://rubygems.org/">rubygems</a> installed.</p>
+</div>
+<div class="paragraph">
+<p>To install Jekyll, first install <code>bundler</code> to use as a package manager:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>gem install bundler</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then create your Gemfile with the following contents to require Jekyll, Asciidoctor and the Asciidoc plugin for Jekyll:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>source 'https://rubygems.org'
+
+gem 'jekyll'
+gem 'asciidoctor'
+
+group :jekyll_plugins do
+  gem "jekyll-asciidoc"
+end</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Finally, install the contents of your Gemfile:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>bundle install</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="create-your-blog">Create Your Blog</h3>
+<div class="paragraph">
+<p>To start, I added a single post, which must follow the following naming convention:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>_posts/&lt;YYYY-MM-DD&gt;-&lt;postname&gt;.adoc</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And have the necessary <a href="http://jekyllrb.com/docs/frontmatter/">front matter</a>.</p>
+</div>
+<div class="paragraph">
+<p>The full Jekyll directory structure is <a href="http://jekyllrb.com/docs/structure/">available here</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="run-your-blog-locally">Run Your Blog Locally</h3>
+<div class="paragraph">
+<p>To start your blog locally, run:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>bundle exec jekyll serve</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Your blog should now be accessible at <a href="http://localhost:4000" class="bare">http://localhost:4000</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="automate-your-blog">Automate Your Blog</h3>
+<div class="paragraph">
+<p>Finally, use <a href="https://travis-ci.org/">Travis CI</a> to automate your blog. Follow the instructions <a href="http://eshepelyuk.github.io/2014/10/28/automate-github-pages-travisci.html">available here</a>.</p>
+</div>
+</div>
