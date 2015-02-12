@@ -9,21 +9,25 @@ fi
 # enable error reporting to the console
 set -e
 
+USERNAME="akeely"
+REPO_NAME="$USERNAME.github.io"
+MASTER_BRANCH="../$REPO_NAME.master"
+
 # build site with jekyll, by default to `_site' folder
 jekyll build
 
 # cleanup
-rm -rf ../akeely.github.io.master
+rm -rf "MASTER_BRANCH"
 
 #clone `master' branch of the repository using encrypted GH_TOKEN for authentification
-git clone https://${GH_TOKEN}@github.com/akeely/akeely.github.io.git ../akeely.github.io.master
+git clone https://${GH_TOKEN}@github.com/$USERNAME/$REPO_NAME.git "$MASTER_BRANCH"
 
 # copy generated HTML site to `master' branch
-cp -R _site/* ../eshepelyuk.github.io.master
+cp -R _site/* "$MASTER_BRANCH"
 
 # commit and push generated content to `master' branch
 # since repository was cloned in write mode with token auth - we can push there
-cd ../akeely.github.io.master
+cd "$MASTER_BRANCH"
 git config user.email "andrew.keely@gmail.com"
 git config user.name "Andrew Keely"
 git add -A .
