@@ -1,0 +1,20 @@
+---
+layout: post
+title: "Refactoring Two Guys and a Dream"
+date: 2015-02-13
+comments: true
+sharing: true
+categories: [Refactoring, TwoGuysAndADream]
+tags: [TwoGuysAndADream, Refactoring]
+---
+
+Many years ago, Erik and I wrote a website to run auction-style drafts for fantasy sports. Over the years, we continued to maintain the site and slowly add features. During that time, most popular fantasy sports sites added auction drafts as an option, but we continued with our site. We like to think we provide features the other sites don't, though I'm sure our emotional attachment to the site is playing a larger role in keeping it around.
+
+Recently though, we started running into performance issues with the site. The core of the site was written before either of us had any real software development experience, and it has grown into a jumble of Perl CGI files mixed with some JavaScript and HTML, with MySQL storing our data. We moved the site from a shared hosting service to AWS, and found that a micro instance on AWS couldn't handle the load. To mitigate, we've had to upgrade to better instances whenever a draft occurs, but that shouldn't be necessary.
+
+In this series of blog posts, I'll walk through the steps as we begin to refactor this legacy code into a more modern application.
+
+You can follow along at our link:https://github.com/akeely/twoguysandadream[Github repo] for the site.
+
+
+And with each post, we'll include a link to the diffs for that stage of refactoring, starting with the link:https://github.com/akeely/twoguysandadream/compare/edac1216275cfba0e2ff2e7b77136e129e6514c9...5d63d83e38d137883a31eadeafe0bb6f6132c3c9[initial commit of the old code].
