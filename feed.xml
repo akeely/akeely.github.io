@@ -5,9 +5,41 @@
     <description></description>
     <link>/</link>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 13 Feb 2015 14:22:40 +0000</pubDate>
-    <lastBuildDate>Fri, 13 Feb 2015 14:22:40 +0000</lastBuildDate>
+    <pubDate>Fri, 13 Feb 2015 20:34:39 +0000</pubDate>
+    <lastBuildDate>Fri, 13 Feb 2015 20:34:39 +0000</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
+    
+      <item>
+        <title>Refactoring Two Guys and a Dream</title>
+        <description>&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Many years ago, Erik and I wrote a website to run auction-style drafts for fantasy sports. Over the years, we continued to maintain the site and slowly add features. During that time, most popular fantasy sports sites added auction drafts as an option, but we continued with our site. We like to think we provide features the other sites don&amp;#8217;t, though I&amp;#8217;m sure our emotional attachment to the site is playing a larger role in keeping it around.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Recently though, we started running into performance issues with the site. The core of the site was written before either of us had any real software development experience, and it has grown into a jumble of Perl CGI files mixed with some JavaScript and HTML, with MySQL storing our data. We moved the site from a shared hosting service to AWS, and found that a micro instance on AWS couldn&amp;#8217;t handle the load. To mitigate, we&amp;#8217;ve had to upgrade to better instances whenever a draft occurs, but that shouldn&amp;#8217;t be necessary.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In this series of blog posts, I&amp;#8217;ll walk through the steps as we begin to refactor this legacy code into a more modern application.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You can follow along at our &lt;a href=&quot;https://github.com/akeely/twoguysandadream&quot;&gt;Github repo&lt;/a&gt; for the site.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;And with each post, we&amp;#8217;ll include a link to the diffs for that stage of refactoring, starting with the &lt;a href=&quot;https://github.com/akeely/twoguysandadream/compare/edac1216275cfba0e2ff2e7b77136e129e6514c9&amp;#8230;&amp;#8203;5d63d83e38d137883a31eadeafe0bb6f6132c3c9&quot;&gt;initial commit of the old code&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;</description>
+        <pubDate>Fri, 13 Feb 2015 00:00:00 +0000</pubDate>
+        <link>/refactoring/twoguysandadream/2015/02/13/twoguysandadream-refactoring-intro.html</link>
+        <guid isPermaLink="true">/refactoring/twoguysandadream/2015/02/13/twoguysandadream-refactoring-intro.html</guid>
+        
+        <category>TwoGuysAndADream</category>
+        
+        <category>Refactoring</category>
+        
+        
+        <category>refactoring</category>
+        
+        <category>twoguysandadream</category>
+        
+      </item>
     
       <item>
         <title>Getting Started with Jekyll and Asciidoc</title>

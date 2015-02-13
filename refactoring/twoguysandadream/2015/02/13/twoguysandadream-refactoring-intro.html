@@ -6,14 +6,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Posts Tagged &ldquo;Jekyll&rdquo;</title>
-  <meta name="description" content="">
+  <title>Refactoring Two Guys and a Dream</title>
+  <meta name="description" content="Many years ago, Erik and I wrote a website to run auction-style drafts for fantasy sports. Over the years, we continued to maintain the site and slowly add f...">
 
-  
+  <meta name="keywords" content="TwoGuysAndADream, Refactoring">
 
   <link rel="stylesheet" href="/css/main.css">
   <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-  <link rel="canonical" href="/tags/Jekyll/">
+  <link rel="canonical" href="/refactoring/twoguysandadream/2015/02/13/twoguysandadream-refactoring-intro.html">
   <link rel="alternate" type="application/rss+xml" title="Andrew Keely's Blog" href="/feed.xml" />
   <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
   <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
@@ -63,35 +63,39 @@
 
     <div class="page-content">
       <div class="wrapper">
-        <h2>Posts Tagged &ldquo;Jekyll&rdquo;</h2>
-          <table class="table table-striped">
-            <tbody>
-              
-            
-            
-            
-            
-            
-              
-            
-            
-            <tr>
-              <td>
-              <h3><a href="/blog/2015/02/11/getting-started-jekyll-asciidoc.html">Getting Started with Jekyll and Asciidoc</a></h3>
-              <p><strong>February 11, 2015</strong> .  . <a href="http://erjjones.github.com/blog/2015/02/11/getting-started-jekyll-asciidoc.html#disqus_thread" data-disqus-identifier="/blog/2015/02/11/getting-started-jekyll-asciidoc.html"></a>
-              <br/><small><i></i></small>
-              <br/><small><i class="icon-tags"></i>  <a href="/tags/Jekyll" title="View posts tagged with &quot;Jekyll&quot;"><u>Jekyll</u></a>     <a href="/tags/Asciidoc" title="View posts tagged with &quot;Asciidoc&quot;"><u>Asciidoc</u></a>     <a href="/tags/Github" title="View posts tagged with &quot;Github&quot;"><u>Github</u></a>    </small></p>
-              </td>
-            </tr>
-            
-            
-            
-            
-            
-            
-                  
-            </tbody>
-          </table> 
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Refactoring Two Guys and a Dream</h1>
+    <span class="post-meta">
+<i class="fa fa-calendar fa-lg"></i>&nbsp;&nbsp;Feb 13, 2015
+
+<i class="fa fa-tags fa-lg"></i>&nbsp; <a href="/tags/TwoGuysAndADream" title="View posts tagged with &quot;TwoGuysAndADream&quot;">TwoGuysAndADream |</a>     <a href="/tags/Refactoring" title="View posts tagged with &quot;Refactoring&quot;">Refactoring |</a>   
+
+</span>
+
+  </header>
+
+  <article class="post-content">
+    <div class="paragraph">
+<p>Many years ago, Erik and I wrote a website to run auction-style drafts for fantasy sports. Over the years, we continued to maintain the site and slowly add features. During that time, most popular fantasy sports sites added auction drafts as an option, but we continued with our site. We like to think we provide features the other sites don&#8217;t, though I&#8217;m sure our emotional attachment to the site is playing a larger role in keeping it around.</p>
+</div>
+<div class="paragraph">
+<p>Recently though, we started running into performance issues with the site. The core of the site was written before either of us had any real software development experience, and it has grown into a jumble of Perl CGI files mixed with some JavaScript and HTML, with MySQL storing our data. We moved the site from a shared hosting service to AWS, and found that a micro instance on AWS couldn&#8217;t handle the load. To mitigate, we&#8217;ve had to upgrade to better instances whenever a draft occurs, but that shouldn&#8217;t be necessary.</p>
+</div>
+<div class="paragraph">
+<p>In this series of blog posts, I&#8217;ll walk through the steps as we begin to refactor this legacy code into a more modern application.</p>
+</div>
+<div class="paragraph">
+<p>You can follow along at our <a href="https://github.com/akeely/twoguysandadream">Github repo</a> for the site.</p>
+</div>
+<div class="paragraph">
+<p>And with each post, we&#8217;ll include a link to the diffs for that stage of refactoring, starting with the <a href="https://github.com/akeely/twoguysandadream/compare/edac1216275cfba0e2ff2e7b77136e129e6514c9&#8230;&#8203;5d63d83e38d137883a31eadeafe0bb6f6132c3c9">initial commit of the old code</a>.</p>
+</div>
+  </article>
+
+</div>
+
       </div>
     </div>
 
