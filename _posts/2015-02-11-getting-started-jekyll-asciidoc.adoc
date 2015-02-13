@@ -10,7 +10,7 @@ tags: [Jekyll, Asciidoc, Github]
 
 Here are the steps I followed to create this blog on Github Pages using Jekyll and Asciidoc.
 
-=== Github Project Setup
+== Github Project Setup
 
 Create your project in Github with the name `<username>.github.io`, and clone it to your local development environment.
 
@@ -30,7 +30,7 @@ Gemfile.lock
 .DS_Store
 ----
 
-=== Install Jekyll and Asciidoc
+== Install Jekyll and Asciidoc
 
 As a prerequisite, make sure you have link:https://www.ruby-lang.org/en/downloads/[ruby] and link:https://rubygems.org/[rubygems] installed.
 
@@ -59,7 +59,7 @@ Finally, install the contents of your Gemfile:
 bundle install
 ----
 
-=== Create Your Blog
+== Create Your Blog
 
 To start, I added a single post, which must follow the following naming convention:
 
@@ -71,7 +71,7 @@ And have the necessary link:http://jekyllrb.com/docs/frontmatter/[front matter].
 
 The full Jekyll directory structure is link:http://jekyllrb.com/docs/structure/[available here].
 
-=== Run Your Blog Locally
+== Run Your Blog Locally
 
 To start your blog locally, run:
 
@@ -81,6 +81,6 @@ bundle exec jekyll serve
 
 Your blog should now be accessible at link:http://localhost:4000[].
 
-=== Automate Your Blog
+== Automate Your Blog
 
 Finally, use link:https://travis-ci.org/[Travis CI] to automate your blog. Follow the instructions link:http://eshepelyuk.github.io/2014/10/28/automate-github-pages-travisci.html[available here].

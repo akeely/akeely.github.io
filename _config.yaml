@@ -1,1 +1,8 @@
+title: Andrew Keely's Blog
+email: andrew.keely@gmail.com
+
+twitter_username: akeely17
+github_username:  akeely
+
+
 exclude: ['README.adoc', 'Gemfile.lock', 'Gemfile', '*.sh']
