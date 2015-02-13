@@ -9,6 +9,7 @@ fi
 # enable error reporting to the console
 set -e
 
+# User specific settings
 USERNAME="akeely"
 REPO_NAME="$USERNAME.github.io"
 MASTER_BRANCH="../$REPO_NAME.master"
