@@ -12,7 +12,8 @@ tags: [TwoGuysAndADream, Refactoring]
 This is a post in a series about Refactoring TwoGuysAndADream.com. To see all posts in this series, go link:/tags/TwoGuysAndADream[here].
 
 ****
-See the code changes for this post: link:https://github.com/akeely/twoguysandadream/compare/5d63d83e38d137883a31eadeafe0bb6f6132c3c9...45a43c9d44059d5c9756f95b286f91d7e0333f3f[Code changes].
+See the code changes for this post:
+link:https://github.com/akeely/twoguysandadream/compare/5d63d83e38d137883a31eadeafe0bb6f6132c3c9…45a43c9d44059d5c9756f95b286f91d7e0333f3f[Code changes].
 ****
 
 == What to Replace
