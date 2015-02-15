@@ -6,14 +6,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Posts Tagged &ldquo;Refactoring&rdquo;</title>
-  <meta name="description" content="">
+  <title>Refactoring Two Guys and a Dream: Getting Started</title>
+  <meta name="description" content="NoteThis is a post in a series about Refactoring TwoGuysAndADream.com. To see all posts in this series, go here.">
 
-  
+  <meta name="keywords" content="TwoGuysAndADream, Refactoring">
 
   <link rel="stylesheet" href="/css/main.css">
   <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-  <link rel="canonical" href="/tags/Refactoring/">
+  <link rel="canonical" href="/refactoring/twoguysandadream/2015/02/15/twoguysandadream-refactoring-getting-started.html">
   <link rel="alternate" type="application/rss+xml" title="Andrew Keely's Blog" href="/feed.xml" />
   <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
   <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
@@ -63,50 +63,82 @@
 
     <div class="page-content">
       <div class="wrapper">
-        <h2>Posts Tagged &ldquo;Refactoring&rdquo;</h2>
-          <table class="table table-striped">
-            <tbody>
-              
-            
-            
-            
-            
-            <tr>
-              <td>
-              <h3><a href="/refactoring/twoguysandadream/2015/02/15/twoguysandadream-refactoring-getting-started.html">Refactoring Two Guys and a Dream: Getting Started</a></h3>
-              <p><strong>February 15, 2015</strong> .  . <a href="http://erjjones.github.com/refactoring/twoguysandadream/2015/02/15/twoguysandadream-refactoring-getting-started.html#disqus_thread" data-disqus-identifier="/refactoring/twoguysandadream/2015/02/15/twoguysandadream-refactoring-getting-started.html"></a>
-              <br/><small><i></i></small>
-              <br/><small><i class="icon-tags"></i>  <a href="/tags/TwoGuysAndADream" title="View posts tagged with &quot;TwoGuysAndADream&quot;"><u>TwoGuysAndADream</u></a>     <a href="/tags/Refactoring" title="View posts tagged with &quot;Refactoring&quot;"><u>Refactoring</u></a>    </small></p>
-              </td>
-            </tr>
-            
-            
-              
-            
-            
-            
-            
-            <tr>
-              <td>
-              <h3><a href="/refactoring/twoguysandadream/2015/02/13/twoguysandadream-refactoring-intro.html">Refactoring Two Guys and a Dream</a></h3>
-              <p><strong>February 13, 2015</strong> .  . <a href="http://erjjones.github.com/refactoring/twoguysandadream/2015/02/13/twoguysandadream-refactoring-intro.html#disqus_thread" data-disqus-identifier="/refactoring/twoguysandadream/2015/02/13/twoguysandadream-refactoring-intro.html"></a>
-              <br/><small><i></i></small>
-              <br/><small><i class="icon-tags"></i>  <a href="/tags/TwoGuysAndADream" title="View posts tagged with &quot;TwoGuysAndADream&quot;"><u>TwoGuysAndADream</u></a>     <a href="/tags/Refactoring" title="View posts tagged with &quot;Refactoring&quot;"><u>Refactoring</u></a>    </small></p>
-              </td>
-            </tr>
-            
-            
-              
-            
-            
-            
-            
-            
-            
-            
-                  
-            </tbody>
-          </table> 
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Refactoring Two Guys and a Dream: Getting Started</h1>
+    <span class="post-meta">
+<i class="fa fa-calendar fa-lg"></i>&nbsp;&nbsp;Feb 15, 2015
+
+<i class="fa fa-tags fa-lg"></i>&nbsp; <a href="/tags/TwoGuysAndADream" title="View posts tagged with &quot;TwoGuysAndADream&quot;">TwoGuysAndADream |</a>     <a href="/tags/Refactoring" title="View posts tagged with &quot;Refactoring&quot;">Refactoring |</a>   
+
+</span>
+
+  </header>
+
+  <article class="post-content">
+    <div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+This is a post in a series about Refactoring TwoGuysAndADream.com. To see all posts in this series, go <a href="/tags/TwoGuysAndADream">here</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p>See the code changes for this post:<br>
+<a href="https://github.com/akeely/twoguysandadream/compare/5d63d83e38d137883a31eadeafe0bb6f6132c3c9…45a43c9d44059d5c9756f95b286f91d7e0333f3f">Code changes</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="what-to-replace">What to Replace</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To get started on refactoring, I wanted to isolate a single piece of functionality to replace. From monitoring the load during the last draft (and our knowledge of the site), I was able to isolate a single request that caused most of our performance problems.</p>
+</div>
+<div class="paragraph">
+<p>During an auction, the auction board is refreshed every second. The data is collected by making a request to <a href="https://github.com/akeely/twoguysandadream/blob/0904a0aefbcd47f24fd26e2aedfce9c424b1f3d4/cgi-bin/fantasy/checkBids.pl"><code>checkBids.pl</code></a>. With an average of 12 users during an auction, we expect about 12 requests per second. For a modern web application, this is not much, but for an inefficient perl script running on minimal hardware, it caused load issues.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="isolating-the-request">Isolating the Request</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>While the auction board user interface is generated by Perl CGI scripts, the content is mostly static. I was able to extract static <a href="https://github.com/akeely/twoguysandadream/blob/454fc4e457870798ec6545c5d3ca60d3e53d6239/public/auction.html">HTML</a> and <a href="https://github.com/akeely/twoguysandadream/blob/454fc4e457870798ec6545c5d3ca60d3e53d6239/public/all_js.js">JavaScript</a> files generated by the CGI scripts using browser tools. I made a <a href="https://github.com/akeely/twoguysandadream/blob/454fc4e457870798ec6545c5d3ca60d3e53d6239/public/all_js.js#L182">small change</a> to the JavaScript file so that it would request data from a new endpoint rather than the CGI script.</p>
+</div>
+<div class="paragraph">
+<p>I also made a request to the existing <code>checkBids.pl</code> CGI script to determine the structure of the JSON response, and saved it to a <a href="https://github.com/akeely/twoguysandadream/tree/454fc4e457870798ec6545c5d3ca60d3e53d6239/src/main/resources/checkBids.json">file</a>. (I used a test league and set up the league state appropriately to ensure I would cover most of the response content as it would be seen during a draft).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-a-prototype">Creating a Prototype</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Once the interface was ready, I created a new Spring Boot project to hold the refactored code. In that project, I created a <a href="https://github.com/akeely/twoguysandadream/tree/45a43c9d44059d5c9756f95b286f91d7e0333f3f/src/main/java/com/twoguysandadream/resources/legacy/AuctionBoard.java">simple controller</a> that served the static JSON response I generated in the previous step.</p>
+</div>
+<div class="paragraph">
+<p>With these pieces in place, I am now able to start the application and see that the pieces  fit together:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/auction-prototype.png" alt="Screenshot of prototype">
+</div>
+</div>
+</div>
+</div>
+  </article>
+
+</div>
+
       </div>
     </div>
 
