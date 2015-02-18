@@ -5,9 +5,104 @@
     <description></description>
     <link>/</link>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 15 Feb 2015 18:31:20 +0000</pubDate>
-    <lastBuildDate>Sun, 15 Feb 2015 18:31:20 +0000</lastBuildDate>
+    <pubDate>Wed, 18 Feb 2015 20:07:33 +0000</pubDate>
+    <lastBuildDate>Wed, 18 Feb 2015 20:07:33 +0000</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
+    
+      <item>
+        <title>Refactoring Two Guys and a Dream: Database Migration</title>
+        <description>&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Note&lt;/div&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+This is a post in a series about Refactoring TwoGuysAndADream.com. To see all posts in this series, go &lt;a href=&quot;/tags/TwoGuysAndADream&quot;&gt;here&lt;/a&gt;.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sidebarblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;See the code changes for this post:&lt;br&gt;
+&lt;a href=&quot;https://github.com/akeely/twoguysandadream/compare/45a43c9d44059d5c9756f95b286f91d7e0333f3f…3f771eda39f9b9ad31fb2f85e3eaa52b408df53d&quot;&gt;Code changes&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;preparing-to-refactor&quot;&gt;Preparing to Refactor&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Before I start making code changes, I want to write some tests to verify the functionality that I&amp;#8217;m replacing.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;To get started, I needed to set up a test environment. Historically, all of our testing was done manually and on the application itself in the production environment.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;My first step to create test environment was to create a test database.  This will allow me to execute tests without modifying the production MySQL database. To do this, I looked toward database migration tools.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;flyway-db&quot;&gt;Flyway DB&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The first tool I tried was &lt;a href=&quot;http://flywaydb.org/&quot;&gt;Flyway&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;To start, I created a &lt;a href=&quot;https://github.com/akeely/twoguysandadream/blob/4b1ff265fc24bc48421a49e21ca23db07576c471/src/main/resources/db/migration/V1__InitialDB.sql&quot;&gt;migration script&lt;/a&gt; using &lt;code&gt;mysqldump&lt;/code&gt;. Given this script, I was able to initialize a local MySQL database that matched the schema of the production database.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;However, this approach would leave my tests dependent on a local MySQL server running. This limits the portability of the tests (every developer or execution environment would need to start up a MySQL server and create a database, or have access to my development environment). It also makes automation more difficult because it leaves persistent state that needs to be managed across test executions.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;To mitigate these limitations, I&amp;#8217;d prefer to use an in memory database for my testing (such as &lt;a href=&quot;http://www.hsqldb.org/&quot;&gt;HSQLDB&lt;/a&gt;, &lt;a href=&quot;http://www.h2database.com/html/main.html&quot;&gt;H2&lt;/a&gt; or &lt;a href=&quot;http://db.apache.org/derby/&quot;&gt;Derby&lt;/a&gt;). While using a different database in testing can introduce integration problems of its own, additional levels of testing can help prevent them.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;My migration script contained a significant amount of MySQL-specific syntax, and so migrating to a different database was difficult.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;liquibase&quot;&gt;Liquibase&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Next, I tried using &lt;a href=&quot;http://www.liquibase.org/&quot;&gt;Liquibase&lt;/a&gt;. Following &lt;a href=&quot;http://www.liquibase.org/documentation/generating_changelogs.html&quot;&gt;these instructions&lt;/a&gt;, I was able to generate a (mostly) database independent &lt;a href=&quot;https://github.com/akeely/twoguysandadream/blob/4b1ff265fc24bc48421a49e21ca23db07576c471/src/main/resources/db/liquibase/changelog.xml&quot;&gt;changelog&lt;/a&gt; to specify the schema.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;With a small amount of manual editing to remove MySQL specific elements (such as enums and key names), I successfully created an HSQLDB &lt;a href=&quot;https://github.com/akeely/twoguysandadream/tree/3f771eda39f9b9ad31fb2f85e3eaa52b408df53d/src/test/resources/db&quot;&gt;file-based database&lt;/a&gt; that I could use for testing.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Finally, I added a small &lt;a href=&quot;https://github.com/akeely/twoguysandadream/tree/3f771eda39f9b9ad31fb2f85e3eaa52b408df53d/src/test/java/com/twoguysandadream/dal&quot;&gt;unit test&lt;/a&gt; to verify that the HSQLDB could be used for testing.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+        <pubDate>Wed, 18 Feb 2015 00:00:00 +0000</pubDate>
+        <link>/refactoring/twoguysandadream/2015/02/18/twoguysandadream-refactoring-database-migration.html</link>
+        <guid isPermaLink="true">/refactoring/twoguysandadream/2015/02/18/twoguysandadream-refactoring-database-migration.html</guid>
+        
+        <category>TwoGuysAndADream</category>
+        
+        <category>Refactoring</category>
+        
+        <category>Database</category>
+        
+        <category>Liquibase</category>
+        
+        <category>FlywayDB</category>
+        
+        <category>MySQL</category>
+        
+        <category>HSQLDB</category>
+        
+        
+        <category>refactoring</category>
+        
+        <category>twoguysandadream</category>
+        
+      </item>
     
       <item>
         <title>Refactoring Two Guys and a Dream: Getting Started</title>
