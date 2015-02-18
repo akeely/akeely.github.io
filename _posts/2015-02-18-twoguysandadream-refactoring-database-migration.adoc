@@ -1,0 +1,45 @@
+---
+layout: post
+title: "Refactoring Two Guys and a Dream: Database Migration"
+date: 2015-02-18
+comments: true
+sharing: true
+categories: [Refactoring, TwoGuysAndADream]
+tags: [TwoGuysAndADream, Refactoring, Database, Liquibase, FlywayDB, MySQL, HSQLDB]
+---
+
+[NOTE]
+This is a post in a series about Refactoring TwoGuysAndADream.com. To see all posts in this series, go link:/tags/TwoGuysAndADream[here].
+
+****
+See the code changes for this post:
+link:https://github.com/akeely/twoguysandadream/compare/45a43c9d44059d5c9756f95b286f91d7e0333f3f…3f771eda39f9b9ad31fb2f85e3eaa52b408df53d[Code changes].
+****
+
+== Preparing to Refactor
+
+Before I start making code changes, I want to write some tests to verify the functionality that I'm replacing.
+
+To get started, I needed to set up a test environment. Historically, all of our testing was done manually and on the application itself in the production environment.
+
+My first step to create test environment was to create a test database.  This will allow me to execute tests without modifying the production MySQL database. To do this, I looked toward database migration tools.
+
+== Flyway DB
+
+The first tool I tried was link:http://flywaydb.org/[Flyway].
+
+To start, I created a link:https://github.com/akeely/twoguysandadream/blob/4b1ff265fc24bc48421a49e21ca23db07576c471/src/main/resources/db/migration/V1__InitialDB.sql[migration script] using `mysqldump`. Given this script, I was able to initialize a local MySQL database that matched the schema of the production database.
+
+However, this approach would leave my tests dependent on a local MySQL server running. This limits the portability of the tests (every developer or execution environment would need to start up a MySQL server and create a database, or have access to my development environment). It also makes automation more difficult because it leaves persistent state that needs to be managed across test executions.
+
+To mitigate these limitations, I'd prefer to use an in memory database for my testing (such as link:http://www.hsqldb.org/[HSQLDB], link:http://www.h2database.com/html/main.html[H2] or link:http://db.apache.org/derby/[Derby]). While using a different database in testing can introduce integration problems of its own, additional levels of testing can help prevent them.
+
+My migration script contained a significant amount of MySQL-specific syntax, and so migrating to a different database was difficult.
+
+== Liquibase
+
+Next, I tried using link:http://www.liquibase.org/[Liquibase]. Following link:http://www.liquibase.org/documentation/generating_changelogs.html[these instructions], I was able to generate a (mostly) database independent link:https://github.com/akeely/twoguysandadream/blob/4b1ff265fc24bc48421a49e21ca23db07576c471/src/main/resources/db/liquibase/changelog.xml[changelog] to specify the schema.
+
+With a small amount of manual editing to remove MySQL specific elements (such as enums and key names), I successfully created an HSQLDB link:https://github.com/akeely/twoguysandadream/tree/3f771eda39f9b9ad31fb2f85e3eaa52b408df53d/src/test/resources/db[file-based database] that I could use for testing.
+
+Finally, I added a small link:https://github.com/akeely/twoguysandadream/tree/3f771eda39f9b9ad31fb2f85e3eaa52b408df53d/src/test/java/com/twoguysandadream/dal[unit test] to verify that the HSQLDB could be used for testing.
