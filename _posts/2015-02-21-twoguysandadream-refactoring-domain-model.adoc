@@ -1,0 +1,42 @@
+---
+layout: post
+title: "Refactoring Two Guys and a Dream: Initial Domain Model"
+date: 2015-02-21
+comments: true
+sharing: true
+categories: [Refactoring, TwoGuysAndADream]
+tags: [TwoGuysAndADream, Refactoring, DomainDrivenDesign]
+---
+
+[NOTE]
+This is a post in a series about Refactoring TwoGuysAndADream.com. To see all posts in this series, go link:/tags/TwoGuysAndADream[here].
+
+****
+See the code changes for this post:
+link:https://github.com/akeely/twoguysandadream/compare/3f771eda39f9b9ad31fb2f85e3eaa52b408df53d…c1dc18ffec8ab5dd01f8a12fc18f283037eb9d0a[Code changes].
+****
+
+== Jumping Ahead
+
+I mentioned in my link:/refactoring/twoguysandadream/2015/02/18/twoguysandadream-refactoring-database-migration.html[last post] that I want to write some tests before I start implementing the new API. Before I do that though, I implemented a basic domain model. While this may be out of order in the ideal refactoring strategy, considering the domain model helps me to reason about what tests to write and what functionality I'm replacing.
+
+== Initial Model
+
+image::http://yuml.me/12bc6e5a[Initial Domain Model]
+
+////
+The UML above is generated at link:http://yuml.me/diagram/scruffy/class/draw[] using the following syntax.
+-----------------------------------------------------------------
+[League|id:long;name:String;rosterSize:int;budget:BigDecimal;minimumBid:BigDecimal|getRosters();getTeamStatistics();]-[note:Aggregate root{bg:wheat}]
+[League]<>-auctionBoard*>[Bid|amount:BigDecimal;expirationTime:long]
+[League]<>-teams*>[Team|id:long;name:String;budgetAdjustment:BigDecimal;adds:int]
+[Team]<>-roster*>[Player]
+[Bid]<>->[Player]
+[Bid]<>->[Team]
+////
+
+To create my domain model, I wanted to apply the principle of link:http://smile.amazon.com/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215[Domain Driven Design] and the link:http://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html[Clean Architecture]. My link:https://github.com/akeely/twoguysandadream/tree/c1dc18ffec8ab5dd01f8a12fc18f283037eb9d0a/src/main/java/com/twoguysandadream/core[initial model] is fairly simple. I started with an aggregate root of a link:https://github.com/akeely/twoguysandadream/blob/c1dc18ffec8ab5dd01f8a12fc18f283037eb9d0a/src/main/java/com/twoguysandadream/core/League.java[League] which is the public API of the domain. The aggregate includes link:https://github.com/akeely/twoguysandadream/tree/c1dc18ffec8ab5dd01f8a12fc18f283037eb9d0a/src/main/java/com/twoguysandadream/core/Team.java[Team] and link:https://github.com/akeely/twoguysandadream/tree/c1dc18ffec8ab5dd01f8a12fc18f283037eb9d0a/src/main/java/com/twoguysandadream/core/Player.java[Player] entities, and link:https://github.com/akeely/twoguysandadream/tree/c1dc18ffec8ab5dd01f8a12fc18f283037eb9d0a/src/main/java/com/twoguysandadream/core/Bid.java[Bid] value objects. The `League` aggregate root includes methods to retrieve all of the rosters of teams in the league, and statistics about `Teams`. See the link:https://github.com/akeely/twoguysandadream/tree/c1dc18ffec8ab5dd01f8a12fc18f283037eb9d0a/src/main/java/com/twoguysandadream/core[full implementation] to view additional details about the domain.
+
+== Notes About the Model
+
+This model is intentionally oversimplified to only provide the functionality I need for the request I am refactoring. As I refactor other portions of the site, the model will grow and change to reflect additional functionality. I fully expect the model to evolve, very possibly to the point where this initial model is no longer recognizable. The goal for this stage was to think critically about the domain, not to design the perfect model.
