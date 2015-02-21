@@ -5,9 +5,77 @@
     <description></description>
     <link>/</link>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 18 Feb 2015 20:07:33 +0000</pubDate>
-    <lastBuildDate>Wed, 18 Feb 2015 20:07:33 +0000</lastBuildDate>
+    <pubDate>Sat, 21 Feb 2015 21:29:41 +0000</pubDate>
+    <lastBuildDate>Sat, 21 Feb 2015 21:29:41 +0000</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
+    
+      <item>
+        <title>Refactoring Two Guys and a Dream: Initial Domain Model</title>
+        <description>&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Note&lt;/div&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+This is a post in a series about Refactoring TwoGuysAndADream.com. To see all posts in this series, go &lt;a href=&quot;/tags/TwoGuysAndADream&quot;&gt;here&lt;/a&gt;.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sidebarblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;See the code changes for this post:&lt;br&gt;
+&lt;a href=&quot;https://github.com/akeely/twoguysandadream/compare/3f771eda39f9b9ad31fb2f85e3eaa52b408df53d…c1dc18ffec8ab5dd01f8a12fc18f283037eb9d0a&quot;&gt;Code changes&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;jumping-ahead&quot;&gt;Jumping Ahead&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;I mentioned in my &lt;a href=&quot;/refactoring/twoguysandadream/2015/02/18/twoguysandadream-refactoring-database-migration.html&quot;&gt;last post&lt;/a&gt; that I want to write some tests before I start implementing the new API. Before I do that though, I implemented a basic domain model. While this may be out of order in the ideal refactoring strategy, considering the domain model helps me to reason about what tests to write and what functionality I&amp;#8217;m replacing.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;initial-model&quot;&gt;Initial Model&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;http://yuml.me/12bc6e5a&quot; alt=&quot;Initial Domain Model&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;To create my domain model, I wanted to apply the principle of &lt;a href=&quot;http://smile.amazon.com/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215&quot;&gt;Domain Driven Design&lt;/a&gt; and the &lt;a href=&quot;http://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html&quot;&gt;Clean Architecture&lt;/a&gt;. My &lt;a href=&quot;https://github.com/akeely/twoguysandadream/tree/c1dc18ffec8ab5dd01f8a12fc18f283037eb9d0a/src/main/java/com/twoguysandadream/core&quot;&gt;initial model&lt;/a&gt; is fairly simple. I started with an aggregate root of a &lt;a href=&quot;https://github.com/akeely/twoguysandadream/blob/c1dc18ffec8ab5dd01f8a12fc18f283037eb9d0a/src/main/java/com/twoguysandadream/core/League.java&quot;&gt;League&lt;/a&gt; which is the public API of the domain. The aggregate includes &lt;a href=&quot;https://github.com/akeely/twoguysandadream/tree/c1dc18ffec8ab5dd01f8a12fc18f283037eb9d0a/src/main/java/com/twoguysandadream/core/Team.java&quot;&gt;Team&lt;/a&gt; and &lt;a href=&quot;https://github.com/akeely/twoguysandadream/tree/c1dc18ffec8ab5dd01f8a12fc18f283037eb9d0a/src/main/java/com/twoguysandadream/core/Player.java&quot;&gt;Player&lt;/a&gt; entities, and &lt;a href=&quot;https://github.com/akeely/twoguysandadream/tree/c1dc18ffec8ab5dd01f8a12fc18f283037eb9d0a/src/main/java/com/twoguysandadream/core/Bid.java&quot;&gt;Bid&lt;/a&gt; value objects. The &lt;code&gt;League&lt;/code&gt; aggregate root includes methods to retrieve all of the rosters of teams in the league, and statistics about &lt;code&gt;Teams&lt;/code&gt;. See the &lt;a href=&quot;https://github.com/akeely/twoguysandadream/tree/c1dc18ffec8ab5dd01f8a12fc18f283037eb9d0a/src/main/java/com/twoguysandadream/core&quot;&gt;full implementation&lt;/a&gt; to view additional details about the domain.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;notes-about-the-model&quot;&gt;Notes About the Model&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This model is intentionally oversimplified to only provide the functionality I need for the request I am refactoring. As I refactor other portions of the site, the model will grow and change to reflect additional functionality. I fully expect the model to evolve, very possibly to the point where this initial model is no longer recognizable. The goal for this stage was to think critically about the domain, not to design the perfect model.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+        <pubDate>Sat, 21 Feb 2015 00:00:00 +0000</pubDate>
+        <link>/refactoring/twoguysandadream/2015/02/21/twoguysandadream-refactoring-domain-model.html</link>
+        <guid isPermaLink="true">/refactoring/twoguysandadream/2015/02/21/twoguysandadream-refactoring-domain-model.html</guid>
+        
+        <category>TwoGuysAndADream</category>
+        
+        <category>Refactoring</category>
+        
+        <category>DomainDrivenDesign</category>
+        
+        
+        <category>refactoring</category>
+        
+        <category>twoguysandadream</category>
+        
+      </item>
     
       <item>
         <title>Refactoring Two Guys and a Dream: Database Migration</title>
