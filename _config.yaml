@@ -6,3 +6,13 @@ github_username:  akeely
 
 
 exclude: ['README.adoc', 'Gemfile.lock', 'Gemfile', '*.sh']
+
+defaults:
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: post
+      comments: true
+      sharing: true
