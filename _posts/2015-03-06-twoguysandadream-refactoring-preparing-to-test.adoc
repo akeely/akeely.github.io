@@ -38,7 +38,7 @@ To accomplish all of this, I took advantage of the link:https://github.com/akeel
 
 I started by writing acceptances tests. I chose link:https://cukes.info/[Cucumber JVM] for these tests because it provides clear separation between the specifications being tested and the code that implements those specifications.
 
-Since I'm only rewriting a single request for now, I added link:b0ab30c5e001668bddeab6a6c[specifications] for that request.
+Since I'm only rewriting a single request for now, I added link:https://github.com/akeely/twoguysandadream/blob/ea08e97e492c41f0a6aacb7eb5d1a22ed57667ac/src/uat/resources/com/twoguysandadream/auction-board.feature[specifications] for that request.
 
 == Adding the Test Skeletons
 
