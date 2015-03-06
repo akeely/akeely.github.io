@@ -4,7 +4,7 @@ title: "Refactoring Two Guys and a Dream"
 date: 2015-02-13
 comments: true
 sharing: true
-categories: [Refactoring, TwoGuysAndADream]
+categories: [Blog]
 tags: [TwoGuysAndADream, Refactoring]
 ---
 

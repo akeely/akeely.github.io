@@ -4,7 +4,7 @@ title: "Refactoring Two Guys and a Dream: Database Migration"
 date: 2015-02-18
 comments: true
 sharing: true
-categories: [Refactoring, TwoGuysAndADream]
+categories: [Blog]
 tags: [TwoGuysAndADream, Refactoring, Database, Liquibase, FlywayDB, MySQL, HSQLDB]
 ---
 

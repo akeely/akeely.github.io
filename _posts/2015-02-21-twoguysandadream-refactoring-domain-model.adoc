@@ -4,7 +4,7 @@ title: "Refactoring Two Guys and a Dream: Initial Domain Model"
 date: 2015-02-21
 comments: true
 sharing: true
-categories: [Refactoring, TwoGuysAndADream]
+categories: [Blog]
 tags: [TwoGuysAndADream, Refactoring, DomainDrivenDesign]
 ---
 
