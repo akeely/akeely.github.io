@@ -6,14 +6,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Posts Tagged &ldquo;FlywayDB&rdquo;</title>
-  <meta name="description" content="">
+  <title>Refactoring Two Guys and a Dream: Database Migration</title>
+  <meta name="description" content="NoteThis is a post in a series about Refactoring TwoGuysAndADream.com. To see all posts in this series, go here.">
 
-  
+  <meta name="keywords" content="TwoGuysAndADream, Refactoring, Database, Liquibase, FlywayDB, MySQL, HSQLDB">
 
   <link rel="stylesheet" href="/css/main.css">
   <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-  <link rel="canonical" href="/tags/FlywayDB/">
+  <link rel="canonical" href="/blog/2015/02/18/twoguysandadream-refactoring-database-migration.html">
   <link rel="alternate" type="application/rss+xml" title="Andrew Keely's Blog" href="/feed.xml" />
   <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
   <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
@@ -63,73 +63,92 @@
 
     <div class="page-content">
       <div class="wrapper">
-        <h2>Posts Tagged &ldquo;FlywayDB&rdquo;</h2>
-          <table class="table table-striped">
-            <tbody>
-              
-            
-            
-            
-            
-            
-            
-            
-              
-            
-            
-            
-            
-            
-            
-            
-              
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            <tr>
-              <td>
-              <h3><a href="/blog/2015/02/18/twoguysandadream-refactoring-database-migration.html">Refactoring Two Guys and a Dream: Database Migration</a></h3>
-              <p><strong>February 18, 2015</strong> .  . <a href="http://erjjones.github.com/blog/2015/02/18/twoguysandadream-refactoring-database-migration.html#disqus_thread" data-disqus-identifier="/blog/2015/02/18/twoguysandadream-refactoring-database-migration.html"></a>
-              <br/><small><i></i></small>
-              <br/><small><i class="icon-tags"></i>  <a href="/tags/TwoGuysAndADream" title="View posts tagged with &quot;TwoGuysAndADream&quot;"><u>TwoGuysAndADream</u></a>     <a href="/tags/Refactoring" title="View posts tagged with &quot;Refactoring&quot;"><u>Refactoring</u></a>     <a href="/tags/Database" title="View posts tagged with &quot;Database&quot;"><u>Database</u></a>     <a href="/tags/Liquibase" title="View posts tagged with &quot;Liquibase&quot;"><u>Liquibase</u></a>     <a href="/tags/FlywayDB" title="View posts tagged with &quot;FlywayDB&quot;"><u>FlywayDB</u></a>     <a href="/tags/MySQL" title="View posts tagged with &quot;MySQL&quot;"><u>MySQL</u></a>     <a href="/tags/HSQLDB" title="View posts tagged with &quot;HSQLDB&quot;"><u>HSQLDB</u></a>    </small></p>
-              </td>
-            </tr>
-            
-            
-            
-            
-            
-            
-              
-            
-            
-            
-            
-            
-              
-            
-            
-            
-            
-            
-              
-            
-            
-            
-            
-            
-            
-            
-                  
-            </tbody>
-          </table> 
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Refactoring Two Guys and a Dream: Database Migration</h1>
+    <span class="post-meta">
+<i class="fa fa-calendar fa-lg"></i>&nbsp;&nbsp;Feb 18, 2015
+
+<i class="fa fa-tags fa-lg"></i>&nbsp; <a href="/tags/TwoGuysAndADream" title="View posts tagged with &quot;TwoGuysAndADream&quot;">TwoGuysAndADream |</a>     <a href="/tags/Refactoring" title="View posts tagged with &quot;Refactoring&quot;">Refactoring |</a>     <a href="/tags/Database" title="View posts tagged with &quot;Database&quot;">Database |</a>     <a href="/tags/Liquibase" title="View posts tagged with &quot;Liquibase&quot;">Liquibase |</a>     <a href="/tags/FlywayDB" title="View posts tagged with &quot;FlywayDB&quot;">FlywayDB |</a>     <a href="/tags/MySQL" title="View posts tagged with &quot;MySQL&quot;">MySQL |</a>     <a href="/tags/HSQLDB" title="View posts tagged with &quot;HSQLDB&quot;">HSQLDB |</a>   
+
+</span>
+
+  </header>
+
+  <article class="post-content">
+    <div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+This is a post in a series about Refactoring TwoGuysAndADream.com. To see all posts in this series, go <a href="/tags/TwoGuysAndADream">here</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p>See the code changes for this post:<br>
+<a href="https://github.com/akeely/twoguysandadream/compare/45a43c9d44059d5c9756f95b286f91d7e0333f3f…3f771eda39f9b9ad31fb2f85e3eaa52b408df53d">Code changes</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="preparing-to-refactor">Preparing to Refactor</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Before I start making code changes, I want to write some tests to verify the functionality that I&#8217;m replacing.</p>
+</div>
+<div class="paragraph">
+<p>To get started, I needed to set up a test environment. Historically, all of our testing was done manually and on the application itself in the production environment.</p>
+</div>
+<div class="paragraph">
+<p>My first step to create test environment was to create a test database.  This will allow me to execute tests without modifying the production MySQL database. To do this, I looked toward database migration tools.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="flyway-db">Flyway DB</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The first tool I tried was <a href="http://flywaydb.org/">Flyway</a>.</p>
+</div>
+<div class="paragraph">
+<p>To start, I created a <a href="https://github.com/akeely/twoguysandadream/blob/4b1ff265fc24bc48421a49e21ca23db07576c471/src/main/resources/db/migration/V1__InitialDB.sql">migration script</a> using <code>mysqldump</code>. Given this script, I was able to initialize a local MySQL database that matched the schema of the production database.</p>
+</div>
+<div class="paragraph">
+<p>However, this approach would leave my tests dependent on a local MySQL server running. This limits the portability of the tests (every developer or execution environment would need to start up a MySQL server and create a database, or have access to my development environment). It also makes automation more difficult because it leaves persistent state that needs to be managed across test executions.</p>
+</div>
+<div class="paragraph">
+<p>To mitigate these limitations, I&#8217;d prefer to use an in memory database for my testing (such as <a href="http://www.hsqldb.org/">HSQLDB</a>, <a href="http://www.h2database.com/html/main.html">H2</a> or <a href="http://db.apache.org/derby/">Derby</a>). While using a different database in testing can introduce integration problems of its own, additional levels of testing can help prevent them.</p>
+</div>
+<div class="paragraph">
+<p>My migration script contained a significant amount of MySQL-specific syntax, and so migrating to a different database was difficult.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="liquibase">Liquibase</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Next, I tried using <a href="http://www.liquibase.org/">Liquibase</a>. Following <a href="http://www.liquibase.org/documentation/generating_changelogs.html">these instructions</a>, I was able to generate a (mostly) database independent <a href="https://github.com/akeely/twoguysandadream/blob/4b1ff265fc24bc48421a49e21ca23db07576c471/src/main/resources/db/liquibase/changelog.xml">changelog</a> to specify the schema.</p>
+</div>
+<div class="paragraph">
+<p>With a small amount of manual editing to remove MySQL specific elements (such as enums and key names), I successfully created an HSQLDB <a href="https://github.com/akeely/twoguysandadream/tree/3f771eda39f9b9ad31fb2f85e3eaa52b408df53d/src/test/resources/db">file-based database</a> that I could use for testing.</p>
+</div>
+<div class="paragraph">
+<p>Finally, I added a small <a href="https://github.com/akeely/twoguysandadream/tree/3f771eda39f9b9ad31fb2f85e3eaa52b408df53d/src/test/java/com/twoguysandadream/dal">unit test</a> to verify that the HSQLDB could be used for testing.</p>
+</div>
+</div>
+</div>
+  </article>
+
+</div>
+
       </div>
     </div>
 

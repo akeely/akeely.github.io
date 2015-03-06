@@ -6,14 +6,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Posts Tagged &ldquo;FlywayDB&rdquo;</title>
-  <meta name="description" content="">
+  <title>Refactoring Two Guys and a Dream: Initial Domain Model</title>
+  <meta name="description" content="NoteThis is a post in a series about Refactoring TwoGuysAndADream.com. To see all posts in this series, go here.">
 
-  
+  <meta name="keywords" content="TwoGuysAndADream, Refactoring, DomainDrivenDesign">
 
   <link rel="stylesheet" href="/css/main.css">
   <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-  <link rel="canonical" href="/tags/FlywayDB/">
+  <link rel="canonical" href="/blog/2015/02/21/twoguysandadream-refactoring-domain-model.html">
   <link rel="alternate" type="application/rss+xml" title="Andrew Keely's Blog" href="/feed.xml" />
   <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
   <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
@@ -63,73 +63,73 @@
 
     <div class="page-content">
       <div class="wrapper">
-        <h2>Posts Tagged &ldquo;FlywayDB&rdquo;</h2>
-          <table class="table table-striped">
-            <tbody>
-              
-            
-            
-            
-            
-            
-            
-            
-              
-            
-            
-            
-            
-            
-            
-            
-              
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            <tr>
-              <td>
-              <h3><a href="/blog/2015/02/18/twoguysandadream-refactoring-database-migration.html">Refactoring Two Guys and a Dream: Database Migration</a></h3>
-              <p><strong>February 18, 2015</strong> .  . <a href="http://erjjones.github.com/blog/2015/02/18/twoguysandadream-refactoring-database-migration.html#disqus_thread" data-disqus-identifier="/blog/2015/02/18/twoguysandadream-refactoring-database-migration.html"></a>
-              <br/><small><i></i></small>
-              <br/><small><i class="icon-tags"></i>  <a href="/tags/TwoGuysAndADream" title="View posts tagged with &quot;TwoGuysAndADream&quot;"><u>TwoGuysAndADream</u></a>     <a href="/tags/Refactoring" title="View posts tagged with &quot;Refactoring&quot;"><u>Refactoring</u></a>     <a href="/tags/Database" title="View posts tagged with &quot;Database&quot;"><u>Database</u></a>     <a href="/tags/Liquibase" title="View posts tagged with &quot;Liquibase&quot;"><u>Liquibase</u></a>     <a href="/tags/FlywayDB" title="View posts tagged with &quot;FlywayDB&quot;"><u>FlywayDB</u></a>     <a href="/tags/MySQL" title="View posts tagged with &quot;MySQL&quot;"><u>MySQL</u></a>     <a href="/tags/HSQLDB" title="View posts tagged with &quot;HSQLDB&quot;"><u>HSQLDB</u></a>    </small></p>
-              </td>
-            </tr>
-            
-            
-            
-            
-            
-            
-              
-            
-            
-            
-            
-            
-              
-            
-            
-            
-            
-            
-              
-            
-            
-            
-            
-            
-            
-            
-                  
-            </tbody>
-          </table> 
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Refactoring Two Guys and a Dream: Initial Domain Model</h1>
+    <span class="post-meta">
+<i class="fa fa-calendar fa-lg"></i>&nbsp;&nbsp;Feb 21, 2015
+
+<i class="fa fa-tags fa-lg"></i>&nbsp; <a href="/tags/TwoGuysAndADream" title="View posts tagged with &quot;TwoGuysAndADream&quot;">TwoGuysAndADream |</a>     <a href="/tags/Refactoring" title="View posts tagged with &quot;Refactoring&quot;">Refactoring |</a>     <a href="/tags/DomainDrivenDesign" title="View posts tagged with &quot;DomainDrivenDesign&quot;">DomainDrivenDesign |</a>   
+
+</span>
+
+  </header>
+
+  <article class="post-content">
+    <div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+This is a post in a series about Refactoring TwoGuysAndADream.com. To see all posts in this series, go <a href="/tags/TwoGuysAndADream">here</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p>See the code changes for this post:<br>
+<a href="https://github.com/akeely/twoguysandadream/compare/3f771eda39f9b9ad31fb2f85e3eaa52b408df53d…c1dc18ffec8ab5dd01f8a12fc18f283037eb9d0a">Code changes</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="jumping-ahead">Jumping Ahead</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>I mentioned in my <a href="/refactoring/twoguysandadream/2015/02/18/twoguysandadream-refactoring-database-migration.html">last post</a> that I want to write some tests before I start implementing the new API. Before I do that though, I implemented a basic domain model. While this may be out of order in the ideal refactoring strategy, considering the domain model helps me to reason about what tests to write and what functionality I&#8217;m replacing.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="initial-model">Initial Model</h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="http://yuml.me/12bc6e5a" alt="Initial Domain Model">
+</div>
+</div>
+<div class="paragraph">
+<p>To create my domain model, I wanted to apply the principle of <a href="http://smile.amazon.com/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215">Domain Driven Design</a> and the <a href="http://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html">Clean Architecture</a>. My <a href="https://github.com/akeely/twoguysandadream/tree/c1dc18ffec8ab5dd01f8a12fc18f283037eb9d0a/src/main/java/com/twoguysandadream/core">initial model</a> is fairly simple. I started with an aggregate root of a <a href="https://github.com/akeely/twoguysandadream/blob/c1dc18ffec8ab5dd01f8a12fc18f283037eb9d0a/src/main/java/com/twoguysandadream/core/League.java">League</a> which is the public API of the domain. The aggregate includes <a href="https://github.com/akeely/twoguysandadream/tree/c1dc18ffec8ab5dd01f8a12fc18f283037eb9d0a/src/main/java/com/twoguysandadream/core/Team.java">Team</a> and <a href="https://github.com/akeely/twoguysandadream/tree/c1dc18ffec8ab5dd01f8a12fc18f283037eb9d0a/src/main/java/com/twoguysandadream/core/Player.java">Player</a> entities, and <a href="https://github.com/akeely/twoguysandadream/tree/c1dc18ffec8ab5dd01f8a12fc18f283037eb9d0a/src/main/java/com/twoguysandadream/core/Bid.java">Bid</a> value objects. The <code>League</code> aggregate root includes methods to retrieve all of the rosters of teams in the league, and statistics about <code>Teams</code>. See the <a href="https://github.com/akeely/twoguysandadream/tree/c1dc18ffec8ab5dd01f8a12fc18f283037eb9d0a/src/main/java/com/twoguysandadream/core">full implementation</a> to view additional details about the domain.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="notes-about-the-model">Notes About the Model</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This model is intentionally oversimplified to only provide the functionality I need for the request I am refactoring. As I refactor other portions of the site, the model will grow and change to reflect additional functionality. I fully expect the model to evolve, very possibly to the point where this initial model is no longer recognizable. The goal for this stage was to think critically about the domain, not to design the perfect model.</p>
+</div>
+</div>
+</div>
+  </article>
+
+</div>
+
       </div>
     </div>
 

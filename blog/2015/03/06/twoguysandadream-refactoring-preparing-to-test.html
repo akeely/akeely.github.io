@@ -6,14 +6,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Posts Tagged &ldquo;FlywayDB&rdquo;</title>
-  <meta name="description" content="">
+  <title>Refactoring Two Guys and a Dream: Initial Domain Model</title>
+  <meta name="description" content="NoteThis is a post in a series about Refactoring TwoGuysAndADream.com. To see all posts in this series, go here.">
 
-  
+  <meta name="keywords" content="TwoGuysAndADream, Refactoring, DomainDrivenDesign">
 
   <link rel="stylesheet" href="/css/main.css">
   <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-  <link rel="canonical" href="/tags/FlywayDB/">
+  <link rel="canonical" href="/blog/2015/03/06/twoguysandadream-refactoring-preparing-to-test.html">
   <link rel="alternate" type="application/rss+xml" title="Andrew Keely's Blog" href="/feed.xml" />
   <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
   <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
@@ -63,73 +63,100 @@
 
     <div class="page-content">
       <div class="wrapper">
-        <h2>Posts Tagged &ldquo;FlywayDB&rdquo;</h2>
-          <table class="table table-striped">
-            <tbody>
-              
-            
-            
-            
-            
-            
-            
-            
-              
-            
-            
-            
-            
-            
-            
-            
-              
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            <tr>
-              <td>
-              <h3><a href="/blog/2015/02/18/twoguysandadream-refactoring-database-migration.html">Refactoring Two Guys and a Dream: Database Migration</a></h3>
-              <p><strong>February 18, 2015</strong> .  . <a href="http://erjjones.github.com/blog/2015/02/18/twoguysandadream-refactoring-database-migration.html#disqus_thread" data-disqus-identifier="/blog/2015/02/18/twoguysandadream-refactoring-database-migration.html"></a>
-              <br/><small><i></i></small>
-              <br/><small><i class="icon-tags"></i>  <a href="/tags/TwoGuysAndADream" title="View posts tagged with &quot;TwoGuysAndADream&quot;"><u>TwoGuysAndADream</u></a>     <a href="/tags/Refactoring" title="View posts tagged with &quot;Refactoring&quot;"><u>Refactoring</u></a>     <a href="/tags/Database" title="View posts tagged with &quot;Database&quot;"><u>Database</u></a>     <a href="/tags/Liquibase" title="View posts tagged with &quot;Liquibase&quot;"><u>Liquibase</u></a>     <a href="/tags/FlywayDB" title="View posts tagged with &quot;FlywayDB&quot;"><u>FlywayDB</u></a>     <a href="/tags/MySQL" title="View posts tagged with &quot;MySQL&quot;"><u>MySQL</u></a>     <a href="/tags/HSQLDB" title="View posts tagged with &quot;HSQLDB&quot;"><u>HSQLDB</u></a>    </small></p>
-              </td>
-            </tr>
-            
-            
-            
-            
-            
-            
-              
-            
-            
-            
-            
-            
-              
-            
-            
-            
-            
-            
-              
-            
-            
-            
-            
-            
-            
-            
-                  
-            </tbody>
-          </table> 
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Refactoring Two Guys and a Dream: Initial Domain Model</h1>
+    <span class="post-meta">
+<i class="fa fa-calendar fa-lg"></i>&nbsp;&nbsp;Mar 6, 2015
+
+<i class="fa fa-tags fa-lg"></i>&nbsp; <a href="/tags/TwoGuysAndADream" title="View posts tagged with &quot;TwoGuysAndADream&quot;">TwoGuysAndADream |</a>     <a href="/tags/Refactoring" title="View posts tagged with &quot;Refactoring&quot;">Refactoring |</a>     <a href="/tags/DomainDrivenDesign" title="View posts tagged with &quot;DomainDrivenDesign&quot;">DomainDrivenDesign |</a>   
+
+</span>
+
+  </header>
+
+  <article class="post-content">
+    <div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+This is a post in a series about Refactoring TwoGuysAndADream.com. To see all posts in this series, go <a href="/tags/TwoGuysAndADream">here</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p>See the code changes for this post:<br>
+<a href="https://github.com/akeely/twoguysandadream/compare/c1dc18ffec8ab5dd01f8a12fc18f283037eb9d0a…ea08e97e492c41f0a6aacb7eb5d1a22ed57667ac">Code changes</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="preparing-to-test">Preparing to Test</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Before writing the tests, I set up my project to to have different levels of tests. This allows me to write tests at different levels of abstraction, and to use appropriate tools for those different levels.</p>
+</div>
+<div class="paragraph">
+<p>I started with three levels of tests - unit tests, functional tests and acceptance tests.</p>
+</div>
+<div class="paragraph">
+<p>The unit tests will test individual units of work, and mock out any outside pieces. These tests will help me to verify that the code I write does what I expect.</p>
+</div>
+<div class="paragraph">
+<p>The functional tests will test the business layer to ensure that the expected features are implemented.</p>
+</div>
+<div class="paragraph">
+<p>The acceptance tests will test the full stack to ensure that the application works as the user would expect.</p>
+</div>
+<div class="paragraph">
+<p>The different layers also provide different opportunities to test integration. The unit tests can use mocks, stubs and spies to ensure quick developer feedback. The functional tests can use test in-memory databases to provide fast tests while still testing integration between different classes. Acceptance tests can run a little slower, but ensure integration throughout the stack.</p>
+</div>
+<div class="paragraph">
+<p>Additionally, the different layers allow me to use different testing frameworks. This both helps to use the best tool for the best purpose, and to provide clear context switching between tests.</p>
+</div>
+<div class="paragraph">
+<p>To accomplish all of this, I took advantage of the <a href="https://github.com/akeely/twoguysandadream/commit/7a1807d0f483a251f7d38f3bb4bbad46291966a7#diff-c197962302397baf3a4cc36463dce5ea">sourceSets</a> that the <a href="http://gradle.org/docs/current/userguide/java_plugin.html">Java plugin</a> for Gradle provides.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="initial-acceptance-test-specifications">Initial Acceptance Test Specifications</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>I started by writing acceptances tests. I chose <a href="https://cukes.info/">Cucumber JVM</a> for these tests because it provides clear separation between the specifications being tested and the code that implements those specifications.</p>
+</div>
+<div class="paragraph">
+<p>Since I&#8217;m only rewriting a single request for now, I added <a href="b0ab30c5e001668bddeab6a6c">specifications</a> for that request.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="adding-the-test-skeletons">Adding the Test Skeletons</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Once the specifications were in place, I needed to add plumbing so that they would run. I started by adding a <a href="https://github.com/akeely/twoguysandadream/blob/ea08e97e492c41f0a6aacb7eb5d1a22ed57667ac/src/uat/groovy/com/twoguysandadream/AuctionTest.java">test class</a> that would bind my tests to the <code>test</code> task. I then added skeleton <a href="https://github.com/akeely/twoguysandadream/blob/ea08e97e492c41f0a6aacb7eb5d1a22ed57667ac/src/uat/groovy/com/twoguysandadream/AuctionBoardStepDefs.groovy">plumbing</a> so that the test could run.</p>
+</div>
+<div class="paragraph">
+<p>With everything in place, we can run the tests:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/gradle-test-results.png" alt="Screenshot of Gradle test results">
+</div>
+</div>
+</div>
+</div>
+  </article>
+
+</div>
+
       </div>
     </div>
 
