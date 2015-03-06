@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Refactoring Two Guys and a Dream: Initial Domain Model"
+title: "Refactoring Two Guys and a Dream: Preparing to Test"
 date: 2015-03-06
 comments: true
 sharing: true
