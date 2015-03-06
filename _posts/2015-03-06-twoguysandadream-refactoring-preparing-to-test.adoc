@@ -1,0 +1,49 @@
+---
+layout: post
+title: "Refactoring Two Guys and a Dream: Initial Domain Model"
+date: 2015-03-06
+comments: true
+sharing: true
+categories: [Blog]
+tags: [TwoGuysAndADream, Refactoring, DomainDrivenDesign]
+---
+
+[NOTE]
+This is a post in a series about Refactoring TwoGuysAndADream.com. To see all posts in this series, go link:/tags/TwoGuysAndADream[here].
+
+****
+See the code changes for this post:
+link:https://github.com/akeely/twoguysandadream/compare/c1dc18ffec8ab5dd01f8a12fc18f283037eb9d0a…ea08e97e492c41f0a6aacb7eb5d1a22ed57667ac[Code changes].
+****
+
+== Preparing to Test
+
+Before writing the tests, I set up my project to to have different levels of tests. This allows me to write tests at different levels of abstraction, and to use appropriate tools for those different levels.
+
+I started with three levels of tests - unit tests, functional tests and acceptance tests.
+
+The unit tests will test individual units of work, and mock out any outside pieces. These tests will help me to verify that the code I write does what I expect.
+
+The functional tests will test the business layer to ensure that the expected features are implemented.
+
+The acceptance tests will test the full stack to ensure that the application works as the user would expect.
+
+The different layers also provide different opportunities to test integration. The unit tests can use mocks, stubs and spies to ensure quick developer feedback. The functional tests can use test in-memory databases to provide fast tests while still testing integration between different classes. Acceptance tests can run a little slower, but ensure integration throughout the stack.
+
+Additionally, the different layers allow me to use different testing frameworks. This both helps to use the best tool for the best purpose, and to provide clear context switching between tests.
+
+To accomplish all of this, I took advantage of the link:https://github.com/akeely/twoguysandadream/commit/7a1807d0f483a251f7d38f3bb4bbad46291966a7#diff-c197962302397baf3a4cc36463dce5ea[sourceSets] that the link:http://gradle.org/docs/current/userguide/java_plugin.html[Java plugin] for Gradle provides.
+
+== Initial Acceptance Test Specifications
+
+I started by writing acceptances tests. I chose link:https://cukes.info/[Cucumber JVM] for these tests because it provides clear separation between the specifications being tested and the code that implements those specifications.
+
+Since I'm only rewriting a single request for now, I added link:b0ab30c5e001668bddeab6a6c[specifications] for that request.
+
+== Adding the Test Skeletons
+
+Once the specifications were in place, I needed to add plumbing so that they would run. I started by adding a link:https://github.com/akeely/twoguysandadream/blob/ea08e97e492c41f0a6aacb7eb5d1a22ed57667ac/src/uat/groovy/com/twoguysandadream/AuctionTest.java[test class] that would bind my tests to the `test` task. I then added skeleton link:https://github.com/akeely/twoguysandadream/blob/ea08e97e492c41f0a6aacb7eb5d1a22ed57667ac/src/uat/groovy/com/twoguysandadream/AuctionBoardStepDefs.groovy[plumbing] so that the test could run.
+
+With everything in place, we can run the tests:
+
+image::/assets/gradle-test-results.png[Screenshot of Gradle test results]
