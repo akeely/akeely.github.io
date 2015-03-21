@@ -109,10 +109,10 @@ This is a post in a series about Refactoring TwoGuysAndADream.com. To see all po
 <h2 id="setting-up-the-test-database">Setting Up the Test Database</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To get started, I created a VM using <a href="https://www.vagrantup.com/">Vagrant</a>. I started with a <a href="https://www.vagrantup.com/">simple Ubuntu VM</a> with private networking set up so that I can connect to it from my development environment. I chose <a href="http://www.ansible.com/home">Ansible</a> to provision the VM because of it&#8217;s simplicity to get started.</p>
+<p>To get started, I created a VM using <a href="https://www.vagrantup.com/">Vagrant</a>. I started with a <a href="https://github.com/akeely/twoguysandadream/blob/eedefc0255d79485902a653b03a5e8c6f30d7a75/src/uat/resources/vagrant/Vagrantfile">simple Ubuntu VM</a> with private networking set up so that I can connect to it from my development environment. I chose <a href="http://www.ansible.com/home">Ansible</a> to provision the VM because of it&#8217;s simplicity to get started.</p>
 </div>
 <div class="paragraph">
-<p>My <a href="http://www.ansible.com/home">first provisioning script</a> added a MySQL database to the VM. The script is configured to install MySQL, create the database, and set up permissions so that the application can connect to it.</p>
+<p>My <a href="https://github.com/akeely/twoguysandadream/blob/eedefc0255d79485902a653b03a5e8c6f30d7a75/src/uat/resources/vagrant/provisioning/legacy/mysql.yaml">first provisioning script</a> added a MySQL database to the VM. The script is configured to install MySQL, create the database, and set up permissions so that the application can connect to it.</p>
 </div>
 <div class="paragraph">
 <p>Once that was up and running, I added the initial plumbing to use <a href="http://flywaydb.org/">Flyway</a> to <a href="https://github.com/akeely/twoguysandadream/blob/9a34ddfefe019eac20a21ba7981a9471264b5f6d/src/uat/groovy/com/twoguysandadream/AuctionBoardStepDefs.groovy">initialize the database</a>.</p>
