@@ -1,0 +1,45 @@
+---
+layout: post
+title: "Refactoring Two Guys and a Dream: Adding the Tests"
+date: 2015-03-21
+comments: true
+sharing: true
+categories: [Blog]
+tags: [TwoGuysAndADream, Refactoring, DomainDrivenDesign]
+---
+
+[NOTE]
+This is a post in a series about Refactoring TwoGuysAndADream.com. To see all posts in this series, go link:/tags/TwoGuysAndADream[here].
+
+****
+See the code changes for this post:
+link:https://github.com/akeely/twoguysandadream/compare/ea08e97e492c41f0a6aacb7eb5d1a22ed57667ac…eedefc0255d79485902a653b03a5e8c6f30d7a75[Code changes].
+****
+
+== Adding the Tests
+
+Now that the test skeletons are in place, I can start adding the actual tests. Since the tests run against the full application, I first need to set up a test environment. I'd like to run the tests against bold the old and new applications to verify they are the same, so the environment must support both.
+
+== Setting Up the Test Database
+
+To get started, I created a VM using link:https://www.vagrantup.com/[Vagrant]. I started with a link:https://www.vagrantup.com/[simple Ubuntu VM] with private networking set up so that I can connect to it from my development environment. I chose link:http://www.ansible.com/home[Ansible] to provision the VM because of it's simplicity to get started.
+
+My link:http://www.ansible.com/home[first provisioning script] added a MySQL database to the VM. The script is configured to install MySQL, create the database, and set up permissions so that the application can connect to it.
+
+Once that was up and running, I added the initial plumbing to use link:http://flywaydb.org/[Flyway] to link:https://github.com/akeely/twoguysandadream/blob/9a34ddfefe019eac20a21ba7981a9471264b5f6d/src/uat/groovy/com/twoguysandadream/AuctionBoardStepDefs.groovy[initialize the database].
+
+[NOTE]
+See my link:/blog/2015/02/18/twoguysandadream-refactoring-database-migration.html[previous post] about database migration to learn more about how I'm using Flyway.
+
+
+== Running the Legacy Application
+
+Now that the database is configured, I need to run the legacy application. Since the application is a simple HTML/JS/Perl CGI application, I added a link:https://github.com/akeely/twoguysandadream/blob/9a34ddfefe019eac20a21ba7981a9471264b5f6d/src/uat/resources/vagrant/provisioning/legacy/apache.yaml[provisioning script] to install and configure apache. After some minimal configuration changes, the application was running.
+
+== Plumbing the Tests
+
+With the test environment set up, I started link:https://github.com/akeely/twoguysandadream/blob/eedefc0255d79485902a653b03a5e8c6f30d7a75/src/uat/groovy/com/twoguysandadream/AuctionBoardStepDefs.groovy[plumbing the tests]. Given the setup that I've already done, this step was straightforward.
+
+Once all of the plumbing was in place, I was able to run the tests against the legacy application to verify that the test cases worked as expected.
+
+Now that the tests are ready, I can start to implement the new application.
