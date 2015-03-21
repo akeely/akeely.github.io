@@ -5,9 +5,102 @@
     <description></description>
     <link>/</link>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 06 Mar 2015 21:06:11 +0000</pubDate>
-    <lastBuildDate>Fri, 06 Mar 2015 21:06:11 +0000</lastBuildDate>
+    <pubDate>Sat, 21 Mar 2015 16:43:39 +0000</pubDate>
+    <lastBuildDate>Sat, 21 Mar 2015 16:43:39 +0000</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
+    
+      <item>
+        <title>Refactoring Two Guys and a Dream: Adding the Tests</title>
+        <description>&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Note&lt;/div&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+This is a post in a series about Refactoring TwoGuysAndADream.com. To see all posts in this series, go &lt;a href=&quot;/tags/TwoGuysAndADream&quot;&gt;here&lt;/a&gt;.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sidebarblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;See the code changes for this post:&lt;br&gt;
+&lt;a href=&quot;https://github.com/akeely/twoguysandadream/compare/ea08e97e492c41f0a6aacb7eb5d1a22ed57667ac…eedefc0255d79485902a653b03a5e8c6f30d7a75&quot;&gt;Code changes&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;adding-the-tests&quot;&gt;Adding the Tests&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Now that the test skeletons are in place, I can start adding the actual tests. Since the tests run against the full application, I first need to set up a test environment. I&amp;#8217;d like to run the tests against bold the old and new applications to verify they are the same, so the environment must support both.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;setting-up-the-test-database&quot;&gt;Setting Up the Test Database&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;To get started, I created a VM using &lt;a href=&quot;https://www.vagrantup.com/&quot;&gt;Vagrant&lt;/a&gt;. I started with a &lt;a href=&quot;https://www.vagrantup.com/&quot;&gt;simple Ubuntu VM&lt;/a&gt; with private networking set up so that I can connect to it from my development environment. I chose &lt;a href=&quot;http://www.ansible.com/home&quot;&gt;Ansible&lt;/a&gt; to provision the VM because of it&amp;#8217;s simplicity to get started.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;My &lt;a href=&quot;http://www.ansible.com/home&quot;&gt;first provisioning script&lt;/a&gt; added a MySQL database to the VM. The script is configured to install MySQL, create the database, and set up permissions so that the application can connect to it.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Once that was up and running, I added the initial plumbing to use &lt;a href=&quot;http://flywaydb.org/&quot;&gt;Flyway&lt;/a&gt; to &lt;a href=&quot;https://github.com/akeely/twoguysandadream/blob/9a34ddfefe019eac20a21ba7981a9471264b5f6d/src/uat/groovy/com/twoguysandadream/AuctionBoardStepDefs.groovy&quot;&gt;initialize the database&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Note&lt;/div&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+See my &lt;a href=&quot;/blog/2015/02/18/twoguysandadream-refactoring-database-migration.html&quot;&gt;previous post&lt;/a&gt; about database migration to learn more about how I&amp;#8217;m using Flyway.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;running-the-legacy-application&quot;&gt;Running the Legacy Application&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Now that the database is configured, I need to run the legacy application. Since the application is a simple HTML/JS/Perl CGI application, I added a &lt;a href=&quot;https://github.com/akeely/twoguysandadream/blob/9a34ddfefe019eac20a21ba7981a9471264b5f6d/src/uat/resources/vagrant/provisioning/legacy/apache.yaml&quot;&gt;provisioning script&lt;/a&gt; to install and configure apache. After some minimal configuration changes, the application was running.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;plumbing-the-tests&quot;&gt;Plumbing the Tests&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;With the test environment set up, I started &lt;a href=&quot;https://github.com/akeely/twoguysandadream/blob/eedefc0255d79485902a653b03a5e8c6f30d7a75/src/uat/groovy/com/twoguysandadream/AuctionBoardStepDefs.groovy&quot;&gt;plumbing the tests&lt;/a&gt;. Given the setup that I&amp;#8217;ve already done, this step was straightforward.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Once all of the plumbing was in place, I was able to run the tests against the legacy application to verify that the test cases worked as expected.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Now that the tests are ready, I can start to implement the new application.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+        <pubDate>Sat, 21 Mar 2015 00:00:00 +0000</pubDate>
+        <link>/blog/2015/03/21/twoguysandadream-refactoring-adding-the-tests.html</link>
+        <guid isPermaLink="true">/blog/2015/03/21/twoguysandadream-refactoring-adding-the-tests.html</guid>
+        
+        <category>TwoGuysAndADream</category>
+        
+        <category>Refactoring</category>
+        
+        <category>DomainDrivenDesign</category>
+        
+        
+        <category>blog</category>
+        
+      </item>
     
       <item>
         <title>Refactoring Two Guys and a Dream: Preparing to Test</title>
