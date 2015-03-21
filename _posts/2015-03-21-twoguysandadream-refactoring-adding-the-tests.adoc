@@ -22,9 +22,9 @@ Now that the test skeletons are in place, I can start adding the actual tests. S
 
 == Setting Up the Test Database
 
-To get started, I created a VM using link:https://www.vagrantup.com/[Vagrant]. I started with a link:https://www.vagrantup.com/[simple Ubuntu VM] with private networking set up so that I can connect to it from my development environment. I chose link:http://www.ansible.com/home[Ansible] to provision the VM because of it's simplicity to get started.
+To get started, I created a VM using link:https://www.vagrantup.com/[Vagrant]. I started with a link:https://github.com/akeely/twoguysandadream/blob/eedefc0255d79485902a653b03a5e8c6f30d7a75/src/uat/resources/vagrant/Vagrantfile[simple Ubuntu VM] with private networking set up so that I can connect to it from my development environment. I chose link:http://www.ansible.com/home[Ansible] to provision the VM because of it's simplicity to get started.
 
-My link:http://www.ansible.com/home[first provisioning script] added a MySQL database to the VM. The script is configured to install MySQL, create the database, and set up permissions so that the application can connect to it.
+My link:https://github.com/akeely/twoguysandadream/blob/eedefc0255d79485902a653b03a5e8c6f30d7a75/src/uat/resources/vagrant/provisioning/legacy/mysql.yaml[first provisioning script] added a MySQL database to the VM. The script is configured to install MySQL, create the database, and set up permissions so that the application can connect to it.
 
 Once that was up and running, I added the initial plumbing to use link:http://flywaydb.org/[Flyway] to link:https://github.com/akeely/twoguysandadream/blob/9a34ddfefe019eac20a21ba7981a9471264b5f6d/src/uat/groovy/com/twoguysandadream/AuctionBoardStepDefs.groovy[initialize the database].
 
