@@ -1,0 +1,45 @@
+---
+layout: post
+title: "Refactoring Two Guys and a Dream: Initial Domain Model"
+date: 2015-02-21
+comments: true
+sharing: true
+categories: [Blog]
+tags: [TwoGuysAndADream, Refactoring, DomainDrivenDesign]
+---
+
+[NOTE]
+This is a post in a series about Refactoring TwoGuysAndADream.com. To see all posts in this series, go link:/tags/TwoGuysAndADream[here].
+
+****
+See the code changes for this post:
+link:https://github.com/akeely/twoguysandadream/compare/eedefc0255d79485902a653b03a5e8c6f30d7a75…c25260b17cad6f9d8c3867bd0c87e2f2780bf6f4[Code changes].
+****
+
+== Implementation
+
+
+== Clean Architecture
+
+image::http://yuml.me/12bc6e5a[Initial Domain Model]
+
+////
+The UML above is generated at link:http://yuml.me/diagram/scruffy/class/draw[] using the following syntax.
+-----------------------------------------------------------------
+[League|id:long;name:String;rosterSize:int;budget:BigDecimal;minimumBid:BigDecimal|getRosters();getTeamStatistics();]-[note:Aggregate root{bg:wheat}]
+[League]<>-auctionBoard*>[Bid|amount:BigDecimal;expirationTime:long]
+[League]<>-teams*>[Team|id:long;name:String;budgetAdjustment:BigDecimal;adds:int]
+[Team]<>-roster*>[Player]
+[Bid]<>->[Player]
+[Bid]<>->[Team]
+////
+
+To create my domain model, I wanted to apply the principle of link:http://smile.amazon.com/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215[Domain Driven Design] and the link:http://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html[Clean Architecture]. 
+
+== Data Access
+
+
+== Web API
+
+
+== Performance Testing
