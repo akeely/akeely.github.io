@@ -18,28 +18,20 @@ link:https://github.com/akeely/twoguysandadream/compare/eedefc0255d79485902a653b
 
 == Implementation
 
+Now that all of the acceptance tests are in place, I started the actual implementation. As I mentioned in a link:{% post_url 2015-02-21-twoguysandadream-refactoring-domain-model %}[previous post], I followed the link:http://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html[Clean Architecture] to design my components.
 
-== Clean Architecture
+For this design, I added a `LeagueRepository` interface to the domain to retrieve a `League`. I then needed three components on my adapter layer to complete the implementation, a `dal` for retrieving information from the database, and `resources`/`api` layer to expose REST endpoints to access the data from the web application, and an application layer to wire everything together.
 
-image::http://yuml.me/12bc6e5a[Initial Domain Model]
-
-////
-The UML above is generated at link:http://yuml.me/diagram/scruffy/class/draw[] using the following syntax.
------------------------------------------------------------------
-[League|id:long;name:String;rosterSize:int;budget:BigDecimal;minimumBid:BigDecimal|getRosters();getTeamStatistics();]-[note:Aggregate root{bg:wheat}]
-[League]<>-auctionBoard*>[Bid|amount:BigDecimal;expirationTime:long]
-[League]<>-teams*>[Team|id:long;name:String;budgetAdjustment:BigDecimal;adds:int]
-[Team]<>-roster*>[Player]
-[Bid]<>->[Player]
-[Bid]<>->[Team]
-////
-
-To create my domain model, I wanted to apply the principle of link:http://smile.amazon.com/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215[Domain Driven Design] and the link:http://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html[Clean Architecture]. 
+To manage all of these layers, I chose link:http://projects.spring.io/spring-boot/[Spring Boot] as a microservice framework that allowed me to quickly create these implementations.
 
 == Data Access
 
+For the `dal` layer, I used link:https://spring.io/guides/gs/relational-data-access/[Spring JDBC] to manage database connections. For new projects, link:http://projects.spring.io/spring-data-jpa/[Spring Data JPA] would get me up and running faster, but writing custom SQL was easier to integrate with the legacy database.
 
 == Web API
+
+
+== Application Layer
 
 
 == Performance Testing
