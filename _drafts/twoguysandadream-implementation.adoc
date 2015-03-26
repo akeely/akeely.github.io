@@ -26,12 +26,16 @@ To manage all of these layers, I chose link:http://projects.spring.io/spring-boo
 
 == Data Access
 
-For the `dal` layer, I used link:https://spring.io/guides/gs/relational-data-access/[Spring JDBC] to manage database connections. For new projects, link:http://projects.spring.io/spring-data-jpa/[Spring Data JPA] would get me up and running faster, but writing custom SQL was easier to integrate with the legacy database.
+For the `dal` layer, I used link:https://spring.io/guides/gs/relational-data-access/[Spring JDBC] to manage database connections. For new projects, link:http://projects.spring.io/spring-data-jpa/[Spring Data JPA] would get me up and running faster, but writing custom SQL was easier to integrate with the legacy database. The `dal` layer only required a singled class, link:https://github.com/akeely/twoguysandadream/blob/c25260b17cad6f9d8c3867bd0c87e2f2780bf6f4/src/main/java/com/twoguysandadream/dal/LeagueDao.java[LeagueDao], (with several nested classes) to translate the database model to the domain model.
 
 == Web API
 
+Since I've already decided on Spring Boot, the web API was also straightforward. I only implemented the legacy request, which required a single link:https://github.com/akeely/twoguysandadream/blob/c25260b17cad6f9d8c3867bd0c87e2f2780bf6f4/src/main/java/com/twoguysandadream/api/legacy/League.java[League] representation that translated the domain entity into the structure that the client could handle. I also created a single endpoint, link:https://github.com/akeely/twoguysandadream/blob/c25260b17cad6f9d8c3867bd0c87e2f2780bf6f4/src/main/java/com/twoguysandadream/resources/legacy/AuctionBoard.java[AuctionBoard], to access the data.
 
 == Application Layer
 
+Finally, I created the application to bring everything together and start the app. I used Spring's java configuration (link:https://github.com/akeely/twoguysandadream/blob/c25260b17cad6f9d8c3867bd0c87e2f2780bf6f4/src/main/java/com/twoguysandadream/config/AppConfiguration.java[AppConfiguration]) to handle dependency injection. I added a simple link:https://github.com/akeely/twoguysandadream/blob/c25260b17cad6f9d8c3867bd0c87e2f2780bf6f4/src/main/java/com/twoguysandadream/app/Application.java[Application] class to provide the entry point to the application. I also had to add link:https://github.com/akeely/twoguysandadream/blob/c25260b17cad6f9d8c3867bd0c87e2f2780bf6f4/src/main/java/com/twoguysandadream/app/SimpleCORSFilter.java[CORS filtering] to allow the legacy client to access the new application.
 
 == Performance Testing
+
+With the implementation complete, it was time to verify that I achieved my goal. In my link:{ post_url 2015-02-13-twoguysandadream-refactoring-intro }[initial post] I noted that the purpose of refactoring was to improve performance. To verify that I was successful, I added link:http://jmeter.apache.org/[JMeter tests] (link:https://github.com/akeely/twoguysandadream/blob/c25260b17cad6f9d8c3867bd0c87e2f2780bf6f4/src/perftest/resources/AWS%20Auction.jmx[test specifications]).
